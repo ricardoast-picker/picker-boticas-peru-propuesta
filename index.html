@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Picker × Boticas Perú — Propuesta Comercial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: hsl(212 100% 97%); --card: hsl(0 0% 100%); --border: hsl(214 33% 91%);
+      --text: hsl(229 35% 16%); --sub: hsl(222 18% 38%); --muted: hsl(216 30% 60%);
+      --celeste: hsl(193 100% 45%); --celeste-dim: hsl(193 100% 45% / .12); --celeste-mid: hsl(193 100% 45% / .3);
+      --green: hsl(162 100% 36%); --green-dim: hsl(162 100% 44% / .12); --green-mid: hsl(162 100% 44% / .3); --green-text: hsl(162 100% 28%);
+      --amber: hsl(43 100% 45%); --amber-bg: hsl(43 100% 67% / .15);
+      --red: hsl(346 100% 45%); --red-bg: hsl(346 100% 63% / .1);
+    }
+    html, body { height: 100%; background: var(--bg); font-family: 'Montserrat', sans-serif; color: var(--text); overflow: hidden; }
+    #deck { width: 100vw; height: 100vh; position: relative; }
+    .slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 44px 66px; opacity: 0; transform: translateX(36px); transition: opacity .4s cubic-bezier(.4,0,.2,1), transform .4s cubic-bezier(.4,0,.2,1); pointer-events: none; overflow: hidden; background: var(--bg); }
+    .slide.active { opacity: 1; transform: translateX(0); pointer-events: all; }
+    .slide.exit { opacity: 0; transform: translateX(-36px); }
+    #nav { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; z-index: 100; }
+    .nav-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s; box-shadow: 0 1px 4px hsl(229 35% 16% / .08); }
+    .nav-btn:hover { border-color: var(--celeste); color: var(--celeste); }
+    .nav-btn:disabled { opacity: .35; cursor: default; }
+    .nav-btn svg { width: 14px; height: 14px; }
+    #indicators { display: flex; gap: 6px; align-items: center; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: all .25s; cursor: pointer; }
+    .dot.on { background: var(--celeste); width: 20px; border-radius: 3px; }
+    #slide-num { position: fixed; top: 20px; right: 26px; font-size: 11px; color: var(--muted); letter-spacing: .05em; font-weight: 600; }
+    .tag { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--green-text); border: 1px solid var(--green-mid); background: var(--green-dim); padding: 4px 12px; border-radius: 4px; margin-bottom: 14px; }
+    .tag.blue { color: var(--celeste); border-color: var(--celeste-mid); background: var(--celeste-dim); }
+    .tag.amber { color: var(--amber); border-color: hsl(43 100% 45% / .3); background: var(--amber-bg); }
+    .tag.red { color: var(--red); border-color: hsl(346 100% 45% / .25); background: var(--red-bg); }
+    h1 { font-size: clamp(32px, 4.2vw, 58px); font-weight: 800; line-height: 1.05; }
+    h2 { font-size: clamp(18px, 2.4vw, 33px); font-weight: 700; line-height: 1.15; }
+    .sub { font-size: clamp(11px, 1vw, 13.5px); color: var(--sub); font-weight: 400; line-height: 1.65; }
+    .content { position: relative; z-index: 1; width: 100%; max-width: 1100px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; box-shadow: 0 1px 6px hsl(229 35% 16% / .06); }
+    .card-sm { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; box-shadow: 0 1px 4px hsl(229 35% 16% / .05); }
+    .card-accent { background: var(--green-dim); border: 1px solid var(--green-mid); border-radius: 14px; padding: 16px 20px; }
+    .card-celeste { background: var(--celeste-dim); border: 1px solid var(--celeste-mid); border-radius: 14px; padding: 16px 20px; }
+    .card-red { background: var(--red-bg); border: 1px solid hsl(346 100% 45% / .25); border-radius: 14px; padding: 16px 20px; }
+    .card-amber { background: var(--amber-bg); border: 1px solid hsl(43 100% 45% / .3); border-radius: 14px; padding: 14px 18px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; }
+    .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; width: 100%; }
+    .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%; }
+    .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 1px 4px hsl(229 35% 16% / .05); }
+    .stat .val { font-size: clamp(22px, 2.8vw, 36px); font-weight: 800; }
+    .stat .val.b { color: var(--celeste); } .stat .val.g { color: var(--green-text); } .stat .val.a { color: var(--amber); } .stat .val.r { color: var(--red); }
+    .stat .lbl { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; }
+    .stat .desc { font-size: 12px; color: var(--sub); margin-top: 2px; }
+    .tbl { width: 100%; border-collapse: collapse; }
+    .tbl th { font-size: 10px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 700; padding: 7px 10px; text-align: left; border-bottom: 2px solid var(--border); }
+    .tbl th.r { text-align: right; }
+    .tbl td { padding: 9px 10px; font-size: 12px; font-weight: 500; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .tbl tr:last-child td { border-bottom: none; }
+    .tbl .total td { font-weight: 800; font-size: 13px; border-top: 2px solid var(--border); border-bottom: none; }
+    .tbl .hl td { background: hsl(162 100% 44% / .07); }
+    .tbl .r { text-align: right; }
+    .tbl .g { color: var(--green-text) !important; font-weight: 700 !important; }
+    .tbl .a { color: var(--amber) !important; font-weight: 700 !important; }
+    .tbl .dim { color: var(--muted) !important; font-size: 11px !important; }
+    .picker-mark { font-size: 13px; font-weight: 800; letter-spacing: .07em; color: var(--celeste); }
+    .row-list { display: flex; flex-direction: column; gap: 7px; }
+    .row-item { display: flex; align-items: flex-start; gap: 9px; font-size: 12px; font-weight: 500; color: var(--sub); line-height: 1.5; }
+    .row-dot { min-width: 6px; height: 6px; border-radius: 50%; background: var(--celeste); margin-top: 5px; flex-shrink: 0; }
+    .row-dot.g { background: var(--green); } .row-dot.a { background: var(--amber); } .row-dot.r { background: var(--red); }
+    .step-num { min-width: 30px; height: 30px; border-radius: 50%; background: var(--celeste-dim); border: 1.5px solid var(--celeste-mid); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: var(--celeste); flex-shrink: 0; }
+    .check-ok { width: 20px; height: 20px; border-radius: 50%; background: var(--green-dim); border: 1.5px solid var(--green-mid); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: var(--green-text); font-weight: 900; }
+    .check-no { width: 20px; height: 20px; border-radius: 50%; background: var(--red-bg); border: 1.5px solid hsl(346 100% 45%/.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: var(--red); font-weight: 900; }
+    .check-row { display: flex; gap: 10px; align-items: flex-start; }
+    .flow-arrow { font-size: 18px; color: var(--border); flex-shrink: 0; align-self: center; }
+  </style>
+</head>
+<body>
+<div id="deck">
+
+<!-- ═══ SLIDE 1 · PORTADA ═══ -->
+<div class="slide active">
+  <div class="content" style="display:flex;flex-direction:column;gap:26px;max-width:840px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="picker-mark">PICKER</span>
+      <span style="color:var(--border);font-size:18px;font-weight:300;">×</span>
+      <span style="font-size:12px;font-weight:700;color:var(--sub);letter-spacing:.06em;">BOTICAS PERÚ</span>
+    </div>
+    <div>
+      <h1>Más entregas.<br/><span style="color:var(--celeste);">Con los recursos que ya tienes.</span></h1>
+      <div style="width:72px;height:4px;background:var(--celeste);border-radius:2px;margin-top:20px;"></div>
+    </div>
+    <p class="sub" style="max-width:560px;font-size:14px;">9 riders propios, tu contrato Yango, carriers de respaldo —<br/>Picker los orquesta en un solo dashboard. Sin cambiar nada.</p>
+    <div style="display:flex;gap:32px;padding-top:6px;">
+      <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin-bottom:4px;">Para</div><div style="font-size:14px;font-weight:700;">Ana Porras · Julio Valera · Alonso · Celeste</div></div>
+      <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin-bottom:4px;">Fecha</div><div style="font-size:14px;font-weight:700;">Junio 2026</div></div>
+      <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin-bottom:4px;">Presentado por</div><div style="font-size:14px;font-weight:700;">Ricardo Astorga · Picker Express</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 2 · LO QUE SABEMOS ═══ -->
+<div class="slide">
+  <div class="content" style="display:flex;flex-direction:column;gap:20px;">
+    <div>
+      <div class="tag blue">Datos confirmados · Demo 4 jun 2026</div>
+      <h2>Lo que sabemos de la operación de Boticas Perú.</h2>
+    </div>
+    <div class="grid4">
+      <div class="stat"><div class="lbl">Tiendas con delivery</div><div class="val b">60</div><div class="desc">Activas hoy en Lima</div></div>
+      <div class="stat"><div class="lbl">Envíos / mes</div><div class="val">4,500</div><div class="desc">En crecimiento constante</div></div>
+      <div class="stat"><div class="lbl">Riders propios</div><div class="val a">9</div><div class="desc">Mego · S/2,000/mes c/u</div></div>
+      <div class="stat"><div class="lbl">Ticket promedio</div><div class="val">S/ 98</div><div class="desc">SLA actual ~45 min</div></div>
+    </div>
+    <div class="grid3" style="gap:16px;">
+      <div class="card-sm" style="padding:18px 20px;">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin-bottom:12px;">Cómo opera hoy</div>
+        <div style="display:flex;gap:18px;align-items:flex-end;margin-bottom:10px;">
+          <div><div style="font-size:34px;font-weight:900;color:var(--amber);">70%</div><div style="font-size:12px;color:var(--sub);">via Yango</div></div>
+          <div style="width:1px;background:var(--border);align-self:stretch;"></div>
+          <div><div style="font-size:34px;font-weight:900;color:var(--text);">30%</div><div style="font-size:12px;color:var(--sub);">riders propios</div></div>
+        </div>
+        <div style="background:var(--amber-bg);border:1px solid hsl(43 100% 45%/.25);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--amber);font-weight:600;">700 transferencias/mes asignadas a Yango</div>
+      </div>
+      <div class="card-sm" style="padding:18px 20px;">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin-bottom:12px;">Cobro en efectivo</div>
+        <div style="font-size:34px;font-weight:900;color:var(--red);margin-bottom:6px;">~35%</div>
+        <div style="font-size:12px;color:var(--sub);margin-bottom:10px;">de pedidos con POS físico</div>
+        <div style="background:var(--red-bg);border:1px solid hsl(346 100% 45%/.2);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--red);font-weight:600;">Asignación manual · sin automatizar</div>
+      </div>
+      <div style="background:var(--text);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--celeste);font-weight:700;margin-bottom:12px;">Pueden crecer sin invertir más</div>
+        <div style="font-size:34px;font-weight:900;color:var(--celeste);margin-bottom:4px;">80+ tiendas</div>
+        <div style="font-size:12px;color:hsl(212 100% 75%);margin-bottom:10px;">meta 20,000 env/mes · mismos riders · misma nómina</div>
+        <div style="background:hsl(193 100% 45%/.18);border:1px solid var(--celeste-mid);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--celeste);font-weight:700;">Más eficiencia con los recursos que ya tienen</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 3 · LOS 3 DESAFÍOS ═══ -->
+<div class="slide">
+  <div class="content" style="display:flex;flex-direction:column;gap:18px;">
+    <div>
+      <div class="tag red">Diagnóstico</div>
+      <h2>Tres desafíos que frenan el crecimiento.</h2>
+    </div>
+    <div class="grid3" style="gap:18px;">
+
+      <div class="card" style="border-top:3px solid var(--red);padding:20px 22px;">
+        <div style="font-size:32px;margin-bottom:10px;">💳</div>
+        <div style="font-weight:800;font-size:16px;color:var(--text);margin-bottom:8px;">Cobro en efectivo — todo manual</div>
+        <p style="font-size:13px;color:var(--sub);line-height:1.55;">El <strong style="color:var(--text);">35% de pedidos</strong> paga en efectivo. Alguien decide manualmente qué rider lleva el datáfono — y los terminales se pierden.</p>
+        <div style="margin-top:14px;padding:10px 14px;background:var(--red-bg);border-radius:8px;font-size:12px;color:var(--red);font-weight:700;">Con Picker: Flows asigna automáticamente · Rapicargo ★◆ hace el cobro en efectivo sin datáfono</div>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--amber);padding:20px 22px;">
+        <div style="font-size:32px;margin-bottom:10px;">🛵</div>
+        <div style="font-weight:800;font-size:16px;color:var(--text);margin-bottom:8px;">Riders al 50% de capacidad</div>
+        <div style="display:flex;gap:14px;align-items:center;margin-bottom:10px;">
+          <div style="text-align:center;flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;">
+            <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:var(--muted);">Hoy</div>
+            <div style="font-size:26px;font-weight:900;color:var(--amber);">1,188</div>
+            <div style="font-size:10px;color:var(--sub);">env/mes · 9 riders</div>
+          </div>
+          <div style="font-size:16px;color:var(--border);">→</div>
+          <div style="text-align:center;flex:1;background:var(--green-dim);border:1px solid var(--green-mid);border-radius:8px;padding:8px 10px;">
+            <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:var(--green-text);">Con Picker</div>
+            <div style="font-size:26px;font-weight:900;color:var(--green-text);">2,376</div>
+            <div style="font-size:10px;color:var(--sub);">env/mes · mismo equipo</div>
+          </div>
+        </div>
+        <div style="padding:10px 14px;background:var(--amber-bg);border-radius:8px;font-size:12px;color:var(--amber);font-weight:700;">El doble de envíos · misma nómina S/18,000 · cero contrataciones</div>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--celeste);padding:20px 22px;">
+        <div style="font-size:32px;margin-bottom:10px;">🔄</div>
+        <div style="font-weight:800;font-size:16px;color:var(--text);margin-bottom:8px;">700 transferencias a Yango</div>
+        <p style="font-size:13px;color:var(--sub);line-height:1.55;">Transferencias entre tiendas van a Yango cuando los <strong style="color:var(--text);">riders propios</strong> podrían hacerlas. Es costo ya cubierto por nómina.</p>
+        <div style="margin-top:14px;padding:10px 14px;background:var(--celeste-dim);border-radius:8px;font-size:12px;color:var(--celeste);font-weight:700;">S/ 5,355/mes que pueden eliminarse con Mi Flota</div>
+      </div>
+
+    </div>
+    <div style="background:var(--green-dim);border:1px solid var(--green-mid);border-radius:10px;padding:13px 22px;display:flex;align-items:center;gap:14px;">
+      <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--green-text);flex-shrink:0;">Raíz común</div>
+      <div style="width:1px;background:var(--green-mid);align-self:stretch;flex-shrink:0;"></div>
+      <div style="font-size:13px;color:var(--sub);font-weight:500;">Los tres tienen la misma causa: <strong>asignación manual sin reglas automáticas.</strong> Flows + Mi Flota los resuelven sin cambiar tu operación.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 4 · CÓMO FUNCIONA ═══ -->
+<div class="slide">
+  <div class="content" style="display:flex;flex-direction:column;gap:16px;">
+    <div>
+      <div class="tag blue">La solución</div>
+      <h2>Picker orquesta todo lo que ya tienes.<br/><span style="color:var(--celeste);">El pedido correcto al rider correcto.</span></h2>
+    </div>
+
+    <div class="card" style="padding:18px 22px;">
+      <div style="display:flex;align-items:stretch;gap:8px;">
+
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;flex:1;text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">📦</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);">Pedido entra</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;">App · Web · Call center</div>
+        </div>
+
+        <div class="flow-arrow" style="font-size:22px;">→</div>
+
+        <div style="background:var(--celeste-dim);border:2px solid var(--celeste-mid);border-radius:10px;padding:14px 16px;flex:1.6;text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">⚡</div>
+          <div style="font-size:13px;font-weight:800;color:var(--celeste);margin-bottom:10px;">Flows — reglas automáticas</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="background:var(--card);border:1px solid var(--celeste-mid);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--sub);">Pago efectivo → Rapicargo ★◆</div>
+            <div style="background:var(--card);border:1px solid var(--celeste-mid);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--sub);">Transferencia / zona cercana → Mi Flota</div>
+            <div style="background:var(--card);border:1px solid var(--celeste-mid);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--sub);">Domicilio estándar → Yango (tu contrato)</div>
+          </div>
+        </div>
+
+        <div class="flow-arrow" style="font-size:22px;">→</div>
+
+        <div style="display:flex;flex-direction:column;gap:6px;flex:1.2;">
+          <div style="background:var(--green-dim);border:1px solid var(--green-mid);border-radius:8px;padding:9px 14px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--green-text);">Mi Flota</div>
+            <div style="font-size:12px;color:var(--sub);margin-top:2px;">9 riders en app Picker · GPS</div>
+          </div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:9px 14px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);">Yango · cred. propias</div>
+            <div style="font-size:12px;color:var(--sub);margin-top:2px;">Tu tarifa · S/5.5 base</div>
+          </div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:9px 14px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);">Rapicargo ★◆ / Cabify</div>
+            <div style="font-size:12px;color:var(--sub);margin-top:2px;">Efectivo + cobertura</div>
+          </div>
+        </div>
+
+        <div class="flow-arrow" style="font-size:22px;">→</div>
+
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;flex:1;text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">✅</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);">Entregado</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;">Tracking · confirmación</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="grid4">
+      <div class="card-sm" style="padding:16px 18px;">
+        <div style="font-size:22px;margin-bottom:8px;">📊</div>
+        <div style="font-size:12px;font-weight:800;color:var(--celeste);margin-bottom:5px;">Dashboard</div>
+        <div style="font-size:12px;color:var(--sub);">Todo en un panel · KPIs por tienda · tiempo real</div>
+      </div>
+      <div class="card-sm" style="padding:16px 18px;border-color:var(--green-mid);">
+        <div style="font-size:22px;margin-bottom:8px;">🛵</div>
+        <div style="font-size:12px;font-weight:800;color:var(--green-text);margin-bottom:5px;">Mi Flota</div>
+        <div style="font-size:12px;color:var(--sub);">9 riders en app · routing automático · GPS</div>
+      </div>
+      <div class="card-sm" style="padding:16px 18px;border-color:var(--celeste-mid);">
+        <div style="font-size:22px;margin-bottom:8px;">⚡</div>
+        <div style="font-size:12px;font-weight:800;color:var(--celeste);margin-bottom:5px;">Flows</div>
+        <div style="font-size:12px;color:var(--sub);">Reglas por pago, zona, distancia · cero intervención</div>
+      </div>
+      <div class="card-sm" style="padding:16px 18px;">
+        <div style="font-size:22px;margin-bottom:8px;">💬</div>
+        <div style="font-size:12px;font-weight:800;color:var(--muted);margin-bottom:5px;">Soporte</div>
+        <div style="font-size:12px;color:var(--sub);">WhatsApp 24/7 · CSM dedicado · onboarding</div>
+      </div>
+    </div>
+
+    <div style="background:var(--celeste-dim);border:1px solid var(--celeste-mid);border-radius:10px;padding:11px 22px;display:flex;align-items:center;gap:14px;">
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--celeste);flex-shrink:0;">Yango sin cambios</div>
+      <div style="width:1px;background:var(--celeste-mid);align-self:stretch;flex-shrink:0;"></div>
+      <div style="font-size:13px;color:var(--sub);font-weight:500;">Picker orquesta Yango con <strong>tu contrato propio</strong> (S/5.5 negociado). Tu acuerdo comercial no cambia — solo lo automatizamos.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 5 · QUÉ SÍ / QUÉ NO ═══ -->
+<div class="slide">
+  <div class="content" style="display:flex;flex-direction:column;gap:16px;">
+    <div>
+      <div class="tag">Alcance</div>
+      <h2>Qué incluye Picker. Qué no cambia.</h2>
+    </div>
+
+    <div class="grid2" style="gap:16px;">
+      <!-- SÍ -->
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--green-text);margin-bottom:2px;">Picker sí hace</div>
+        <div class="card-sm" style="padding:13px 18px;">
+          <div class="check-row"><div class="check-ok">✓</div><div><div style="font-size:13px;font-weight:700;color:var(--text);">Dashboard unificado</div><div style="font-size:12px;color:var(--sub);margin-top:2px;">Mi Flota + Yango + Rapicargo + Cabify en un panel</div></div></div>
+        </div>
+        <div class="card-sm" style="padding:13px 18px;">
+          <div class="check-row"><div class="check-ok">✓</div><div><div style="font-size:13px;font-weight:700;color:var(--text);">Mi Flota — riders propios digitalizados</div><div style="font-size:12px;color:var(--sub);margin-top:2px;">App móvil · GPS · asignación automática · métricas</div></div></div>
+        </div>
+        <div class="card-sm" style="padding:13px 18px;">
+          <div class="check-row"><div class="check-ok">✓</div><div><div style="font-size:13px;font-weight:700;color:var(--text);">Flows — asignación automática</div><div style="font-size:12px;color:var(--sub);margin-top:2px;">Efectivo → Rapicargo · transfer → Mi Flota · resto → Yango</div></div></div>
+        </div>
+        <div class="card-sm" style="padding:13px 18px;">
+          <div class="check-row"><div class="check-ok">✓</div><div><div style="font-size:13px;font-weight:700;color:var(--text);">Credenciales Yango propias</div><div style="font-size:12px;color:var(--sub);margin-top:2px;">Tu tarifa negociada S/5.5 base — sin renegociar nada</div></div></div>
+        </div>
+        <div class="card-sm" style="padding:13px 18px;">
+          <div class="check-row"><div class="check-ok">✓</div><div><div style="font-size:13px;font-weight:700;color:var(--text);">Cobro en efectivo — Rapicargo ★◆</div><div style="font-size:12px;color:var(--sub);margin-top:2px;">Cash collection automático — sin coordinar datáfono</div></div></div>
+        </div>
+        <div class="card-sm" style="padding:13px 18px;">
+          <div class="check-row"><div class="check-ok">✓</div><div><div style="font-size:13px;font-weight:700;color:var(--text);">Escala a 80+ tiendas sin reinvertir</div><div style="font-size:12px;color:var(--sub);margin-top:2px;">Mismo equipo · misma nómina · Flows se activa por tienda</div></div></div>
+        </div>
+      </div>
+
+      <!-- NO + MODELO -->
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:2px;">Picker no es</div>
+        <div class="card-sm" style="padding:13px 18px;border-color:hsl(346 100% 45%/.3);background:var(--red-bg);">
+          <div class="check-row"><div class="check-no">✕</div><div><div style="font-size:13px;font-weight:700;color:var(--text);">No es un carrier</div><div style="font-size:12px;color:var(--sub);margin-top:2px;">No competimos con Yango ni Rapicargo — los orquestamos</div></div></div>
+        </div>
+        <div class="card-sm" style="padding:13px 18px;border-color:hsl(346 100% 45%/.3);background:var(--red-bg);">
+          <div class="check-row"><div class="check-no">✕</div><div><div style="font-size:13px;font-weight:700;color:var(--text);">No cambia tu contrato Yango</div><div style="font-size:12px;color:var(--sub);margin-top:2px;">Tu tarifa negociada se mantiene — solo conectamos via API</div></div></div>
+        </div>
+
+        <div style="margin-top:4px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--celeste);">Modelo recomendado</div>
+        <div style="background:var(--text);border-radius:14px;overflow:hidden;flex:1;">
+          <div style="padding:10px 18px;border-bottom:1px solid hsl(229 50% 25%);">
+            <div style="font-size:11px;font-weight:700;color:var(--celeste);">Orden de asignación — Flows</div>
+          </div>
+          <div style="padding:14px 18px;display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="min-width:26px;height:26px;border-radius:50%;background:var(--green-dim);border:2px solid var(--green-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--green);flex-shrink:0;">1</div>
+              <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:white;">Mi Flota · riders propios</div><div style="font-size:11px;color:hsl(212 100% 75%);">Transferencias · zonas cercanas · disponibles</div></div>
+              <div style="font-size:11px;font-weight:800;color:var(--green);">Nómina ya cubierta</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="min-width:26px;height:26px;border-radius:50%;background:hsl(43 100% 45%/.2);border:2px solid hsl(43 100% 45%/.4);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--amber);flex-shrink:0;">2</div>
+              <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:white;">Yango · credenciales propias</div><div style="font-size:11px;color:hsl(212 100% 75%);">Domicilios estándar · tu tarifa negociada</div></div>
+              <div style="font-size:11px;font-weight:800;color:var(--amber);">S/5.5 base</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="min-width:26px;height:26px;border-radius:50%;background:hsl(216 30% 60%/.2);border:2px solid hsl(216 30% 60%/.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--muted);flex-shrink:0;">3</div>
+              <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:white;">Rapicargo ★◆ / Cabify</div><div style="font-size:11px;color:hsl(212 100% 75%);">Efectivo + cobertura extra + overflow</div></div>
+              <div style="font-size:11px;font-weight:800;color:hsl(212 100% 60%);">Respaldo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 6 · EJERCICIO FINANCIERO ═══ -->
+<div class="slide">
+  <div class="content" style="display:flex;flex-direction:column;gap:14px;">
+    <div>
+      <div class="tag amber">Modelo financiero · datos confirmados 4 jun</div>
+      <h2>El impacto en números.</h2>
+    </div>
+
+    <!-- COMPARATIVA ARRIBA -->
+    <div class="grid2" style="gap:14px;">
+      <!-- HOY -->
+      <div class="card" style="padding:16px 20px;">
+        <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:12px;">Hoy — sin Picker</div>
+        <table class="tbl">
+          <thead><tr><th>Concepto</th><th class="r">S/ / mes</th></tr></thead>
+          <tbody>
+            <tr><td>Yango · 3,150 envíos</td><td class="r a">S/ 30,800</td></tr>
+            <tr><td>Riders Mego · nómina</td><td class="r a">S/ 18,000</td></tr>
+            <tr class="total"><td style="color:var(--red);">Total mensual</td><td class="r" style="color:var(--red);">S/ 48,800</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px;background:var(--red-bg);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--red);font-weight:600;">Asignación manual · 6 env/día por rider · transfers a Yango</div>
+      </div>
+
+      <!-- CON PICKER — resaltado -->
+      <div style="background:var(--green-dim);border:2px solid var(--green-mid);border-radius:14px;padding:16px 20px;box-shadow:0 4px 20px hsl(162 100% 44%/.2);">
+        <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--green-text);margin-bottom:12px;">Con Picker ✓</div>
+        <table class="tbl">
+          <thead><tr><th>Concepto</th><th class="r">S/ / mes</th></tr></thead>
+          <tbody>
+            <tr class="hl"><td>Mi Flota · toma transfers + rutas</td><td class="r g">incluido</td></tr>
+            <tr><td>Yango · 2,000 envíos</td><td class="r">S/ 19,600</td></tr>
+            <tr><td>Riders Mego · nómina</td><td class="r">S/ 18,000</td></tr>
+            <tr><td>Fee Picker · 4,500 × S/1.65</td><td class="r">S/ 7,425</td></tr>
+            <tr class="total"><td style="color:var(--green-text);">Total mensual</td><td class="r g">S/ 45,025</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px;background:hsl(162 100% 44%/.2);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--green-text);font-weight:700;">Riders a 12 env/día · transfers a Mi Flota · Flows automático</div>
+      </div>
+    </div>
+
+    <!-- BENEFICIOS ABAJO -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;">
+      <div style="background:var(--green-dim);border:2px solid var(--green-mid);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:10px;font-weight:800;color:var(--green-text);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Ahorro mensual</div>
+        <div style="font-size:30px;font-weight:900;color:var(--green-text);">S/ 3,775</div>
+        <div style="font-size:11px;color:var(--sub);margin-top:5px;">en costo operativo directo</div>
+      </div>
+      <div style="background:var(--green-dim);border:2px solid var(--green-mid);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:10px;font-weight:800;color:var(--green-text);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Ahorro anual</div>
+        <div style="font-size:30px;font-weight:900;color:var(--green-text);">S/ 45,300</div>
+        <div style="font-size:11px;color:var(--sub);margin-top:5px;">sin inversión inicial</div>
+      </div>
+      <div style="background:var(--celeste-dim);border:2px solid var(--celeste-mid);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:10px;font-weight:800;color:var(--celeste);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Riders — productividad</div>
+        <div style="display:flex;align-items:baseline;gap:5px;">
+          <div style="font-size:24px;font-weight:900;color:var(--muted);text-decoration:line-through;opacity:.6;">6</div>
+          <div style="font-size:20px;color:var(--celeste);font-weight:300;">→</div>
+          <div style="font-size:30px;font-weight:900;color:var(--celeste);">12</div>
+        </div>
+        <div style="font-size:11px;color:var(--sub);margin-top:5px;">env/día · misma nómina S/18K</div>
+      </div>
+      <div style="background:var(--text);border:2px solid hsl(43 100% 50%/.5);border-radius:12px;padding:16px 18px;">
+        <div style="font-size:10px;font-weight:800;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Meta total de envíos</div>
+        <div style="font-size:30px;font-weight:900;color:var(--amber);">20,000</div>
+        <div style="font-size:11px;color:hsl(212 100% 75%);margin-top:5px;">env/mes · 80+ tiendas activas</div>
+        <div style="font-size:11px;font-weight:800;color:var(--green);margin-top:5px;">Sin un rider más</div>
+      </div>
+    </div>
+
+    <div style="background:var(--green-dim);border:1px solid var(--green-mid);border-radius:10px;padding:10px 20px;font-size:11px;color:var(--sub);">★ Modelo preliminar · sujeto a validación de tarifa Yango exacta y % real de pedidos con POS</div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 7 · PRECIO ═══ -->
+<div class="slide">
+  <div class="content" style="display:flex;flex-direction:column;gap:16px;">
+    <div>
+      <div class="tag blue">Precio · Perú</div>
+      <h2>Pagas solo por lo que entregas.</h2>
+    </div>
+
+    <div class="grid2" style="gap:16px;align-items:start;">
+      <!-- TARIFARIO -->
+      <div class="card" style="padding:16px 20px;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px;">Carriers disponibles · Lima · S/ por envío</div>
+        <div style="border-radius:10px;overflow:hidden;border:1px solid var(--border);">
+          <table class="tbl" style="margin:0;">
+            <thead>
+              <tr style="background:var(--text);">
+                <th style="color:hsl(212 100% 85%);font-size:9px;padding:7px 10px;">Km</th>
+                <th class="r" style="color:hsl(212 100% 85%);font-size:9px;padding:7px 8px;">Cabify</th>
+                <th class="r" style="color:hsl(212 100% 85%);font-size:9px;padding:7px 8px;">Rapicargo ★◆</th>
+                <th class="r" style="color:hsl(212 100% 85%);font-size:9px;padding:7px 8px;">Pedidos Ya</th>
+                <th class="r" style="color:var(--celeste);font-size:9px;padding:7px 8px;">Yango ▼</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="font-size:11px;font-weight:600;padding:7px 10px;">0–3 km</td><td class="r" style="padding:7px 8px;font-size:11px;">8.50</td><td class="r" style="padding:7px 8px;font-size:11px;">6.90</td><td class="r" style="padding:7px 8px;font-size:11px;">7.50</td><td class="r" style="padding:7px 8px;font-size:11px;font-weight:700;color:var(--celeste);">7.65</td></tr>
+              <tr><td style="font-size:11px;font-weight:600;padding:7px 10px;">4 km</td><td class="r" style="padding:7px 8px;font-size:11px;">10.92</td><td class="r" style="padding:7px 8px;font-size:11px;">8.84</td><td class="r" style="padding:7px 8px;font-size:11px;">9.98</td><td class="r" style="padding:7px 8px;font-size:11px;font-weight:700;color:var(--celeste);">9.53</td></tr>
+              <tr><td style="font-size:11px;font-weight:600;padding:7px 10px;">5 km</td><td class="r" style="padding:7px 8px;font-size:11px;">12.92</td><td class="r" style="padding:7px 8px;font-size:11px;">10.44</td><td class="r" style="padding:7px 8px;font-size:11px;">12.08</td><td class="r" style="padding:7px 8px;font-size:11px;font-weight:700;color:var(--celeste);">11.04</td></tr>
+              <tr><td style="font-size:11px;font-weight:600;padding:7px 10px;">6 km</td><td class="r" style="padding:7px 8px;font-size:11px;">14.91</td><td class="r" style="padding:7px 8px;font-size:11px;">12.03</td><td class="r" style="padding:7px 8px;font-size:11px;">14.18</td><td class="r" style="padding:7px 8px;font-size:11px;font-weight:700;color:var(--celeste);">12.54</td></tr>
+              <tr><td style="font-size:11px;font-weight:600;padding:7px 10px;">7.5 km</td><td class="r" style="padding:7px 8px;font-size:11px;">17.91</td><td class="r" style="padding:7px 8px;font-size:11px;">13.83</td><td class="r" style="padding:7px 8px;font-size:11px;">17.33</td><td class="r" style="padding:7px 8px;font-size:11px;font-weight:700;color:var(--celeste);">15.54</td></tr>
+              <tr><td style="font-size:11px;font-weight:600;padding:7px 10px;">km extra</td><td class="r" style="padding:7px 8px;font-size:11px;">2.00</td><td class="r" style="padding:7px 8px;font-size:11px;">1.60</td><td class="r" style="padding:7px 8px;font-size:11px;">2.10</td><td class="r" style="padding:7px 8px;font-size:11px;font-weight:700;color:var(--celeste);">1.50</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:8px;font-size:10px;color:var(--muted);">★ Cash on delivery &nbsp;·&nbsp; ◆ Recaudo &nbsp;·&nbsp; ▼ Tarifas públicas — tu contrato negociado es mejor (S/5.5 base)</div>
+      </div>
+
+      <!-- DERECHA: FEE + RESUMEN -->
+      <div style="display:flex;flex-direction:column;gap:12px;">
+
+        <!-- FEE PICKER -->
+        <div class="card" style="padding:18px 22px;">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px;">¿Qué le pagas a Picker?</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 18px;text-align:center;flex:1;">
+              <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Yango · tarifa negociada</div>
+              <div style="font-size:22px;font-weight:900;color:var(--text);margin-top:4px;">S/ 5.5</div>
+              <div style="font-size:10px;color:var(--muted);margin-top:2px;">base · más km adicional</div>
+            </div>
+            <div style="font-size:20px;color:var(--muted);font-weight:300;">+</div>
+            <div style="background:var(--celeste-dim);border:2px solid var(--celeste-mid);border-radius:10px;padding:14px 18px;text-align:center;flex:1;">
+              <div style="font-size:10px;font-weight:700;color:var(--celeste);text-transform:uppercase;letter-spacing:.06em;">Fee Picker</div>
+              <div style="font-size:22px;font-weight:900;color:var(--celeste);margin-top:4px;">S/ 1.65</div>
+              <div style="font-size:10px;color:var(--sub);margin-top:2px;">S/1.40 + IGV · por envío</div>
+            </div>
+          </div>
+          <div style="background:var(--green-dim);border:1px solid var(--green-mid);border-radius:8px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--sub);">Cuota fija mensual</div>
+              <div style="font-size:11px;color:var(--muted);text-decoration:line-through;margin-top:2px;">S/ 200/local · S/ 12,000 total</div>
+            </div>
+            <div style="font-size:28px;font-weight:900;color:var(--green-text);">S/ 0</div>
+          </div>
+        </div>
+
+        <!-- INTEGRACIÓN GRATIS -->
+        <div style="background:linear-gradient(135deg,hsl(193 100% 45%/.15),hsl(162 100% 44%/.15));border:1.5px solid var(--celeste-mid);border-radius:12px;padding:14px 20px;display:flex;gap:14px;align-items:center;">
+          <div style="font-size:30px;flex-shrink:0;">🚀</div>
+          <div style="flex:1;">
+            <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:2px;">Integración gratis los primeros 30 días</div>
+            <div style="font-size:12px;color:var(--sub);">Onboarding riders · Flows · conexión Yango — sin costo al arrancar</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div style="font-size:14px;font-weight:900;color:var(--muted);text-decoration:line-through;opacity:.5;">S/3,000</div>
+            <div style="font-size:22px;font-weight:900;color:var(--green-text);">S/ 0</div>
+          </div>
+        </div>
+
+        <!-- RESUMEN DARK -->
+        <div style="background:hsl(229 35% 13%);border:1px solid hsl(229 35% 22%);border-radius:12px;overflow:hidden;flex:1;">
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;padding:16px 20px;gap:8px;align-items:center;border-bottom:1px solid hsl(229 35% 20%);">
+            <div style="text-align:center;">
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:hsl(346 100% 75%);margin-bottom:4px;">Costo hoy</div>
+              <div style="font-size:26px;font-weight:900;color:hsl(346 100% 70%);">S/ 48,800</div>
+            </div>
+            <div style="font-size:26px;color:var(--celeste);font-weight:300;">→</div>
+            <div style="text-align:center;">
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:hsl(162 100% 60%);margin-bottom:4px;">Con Picker</div>
+              <div style="font-size:26px;font-weight:900;color:hsl(162 100% 55%);">S/ 45,025</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:16px 18px;gap:10px;">
+            <div style="text-align:center;">
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:hsl(162 100% 60%);margin-bottom:4px;">Ahorro directo</div>
+              <div style="font-size:20px;font-weight:900;color:hsl(162 100% 60%);">S/ 45K/año</div>
+            </div>
+            <div style="text-align:center;border-left:1px solid hsl(229 35% 22%);border-right:1px solid hsl(229 35% 22%);">
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:hsl(193 100% 65%);margin-bottom:4px;">Riders</div>
+              <div style="font-size:20px;font-weight:900;color:hsl(193 100% 65%);">6 → 12/día</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:hsl(43 100% 65%);margin-bottom:4px;">Total con Picker</div>
+              <div style="font-size:20px;font-weight:900;color:hsl(43 100% 65%);">20K env/mes</div>
+              <div style="font-size:9px;color:hsl(212 100% 55%);margin-top:3px;">vs 4,500 hoy</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 8 · PRÓXIMOS PASOS ═══ -->
+<div class="slide">
+  <div class="content" style="display:flex;flex-direction:column;gap:16px;">
+    <div>
+      <div class="tag">Plan de arranque</div>
+      <h2>Arranque progresivo en 4 pasos.</h2>
+    </div>
+
+    <div class="grid2" style="gap:16px;align-items:start;">
+      <!-- PASOS -->
+      <div class="card" style="padding:18px 22px;">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div class="step-num">1</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;font-weight:700;color:var(--text);">Validación de datos</div>
+              <div style="font-size:12px;color:var(--sub);margin-top:4px;">Tarifa Yango exacta · % POS real · integración con Alonso</div>
+              <div style="margin-top:7px;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:11px;color:var(--muted);font-weight:600;">Semana 1 · Alonso + Ana Porras</div>
+            </div>
+          </div>
+
+          <div style="height:1px;background:var(--border);"></div>
+
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div class="step-num">2</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;font-weight:700;color:var(--text);">Setup técnico</div>
+              <div style="font-size:12px;color:var(--sub);margin-top:4px;">Conexión Yango · alta 9 riders en Mi Flota · Flows configurado</div>
+              <div style="margin-top:7px;background:var(--celeste-dim);border:1px solid var(--celeste-mid);border-radius:6px;padding:5px 12px;font-size:11px;color:var(--celeste);font-weight:700;">Semana 1–2 · sin costo de integración</div>
+            </div>
+          </div>
+
+          <div style="height:1px;background:var(--border);"></div>
+
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div class="step-num">3</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;font-weight:700;color:var(--text);">Piloto · 1 tienda</div>
+              <div style="font-size:12px;color:var(--sub);margin-top:4px;">Validar SLA real, costo por carrier y productividad · ajustar Flows</div>
+              <div style="margin-top:7px;background:var(--green-dim);border:1px solid var(--green-mid);border-radius:6px;padding:5px 12px;font-size:11px;color:var(--green-text);font-weight:700;">Semana 2–3 · 1 tienda piloto para validar todo antes de escalar</div>
+            </div>
+          </div>
+
+          <div style="height:1px;background:var(--border);"></div>
+
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div class="step-num">4</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;font-weight:700;color:var(--text);">Escala a 80+ tiendas</div>
+              <div style="font-size:12px;color:var(--sub);margin-top:4px;">Revisión métricas piloto · decisión expansión · activación por tienda</div>
+              <div style="margin-top:7px;background:var(--amber-bg);border:1px solid hsl(43 100% 45%/.3);border-radius:6px;padding:5px 12px;font-size:11px;color:var(--amber);font-weight:700;">Semana 4 · decisión de escala a todas las tiendas</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DERECHA -->
+      <div style="display:flex;flex-direction:column;gap:12px;">
+
+        <!-- PENDIENTES -->
+        <div class="card-amber" style="padding:16px 20px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--amber);margin-bottom:10px;">Pendientes a validar</div>
+          <div class="row-list">
+            <div class="row-item"><div class="row-dot a"></div><span><strong>Tarifa Yango negociada</strong> — confirmar S/5.5 o el valor real del contrato</span></div>
+            <div class="row-item"><div class="row-dot a"></div><span><strong>% real de pedidos con POS</strong> — estimamos 35%, validar con sistema</span></div>
+            <div class="row-item"><div class="row-dot a"></div><span><strong>Sistema de órdenes</strong> — con Alonso: ¿API disponible o integración manual?</span></div>
+            <div class="row-item"><div class="row-dot" style="background:var(--muted);"></div><span>Condiciones contrato riders Mego para Mi Flota</span></div>
+          </div>
+        </div>
+
+        <!-- PILOTO -->
+        <div style="background:var(--text);border-radius:14px;overflow:hidden;">
+          <div style="padding:10px 18px;border-bottom:1px solid hsl(229 50% 25%);display:flex;align-items:center;gap:10px;">
+            <div style="font-size:18px;">🚀</div>
+            <div style="font-size:12px;font-weight:800;color:var(--celeste);">El piloto — cómo arrancar sin riesgo</div>
+          </div>
+          <div style="padding:16px 18px;display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <div style="min-width:8px;height:8px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
+              <div style="font-size:13px;color:white;font-weight:600;">Arrancamos con <span style="color:var(--celeste);">1 tienda</span> para validar todo el funcionamiento</div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <div style="min-width:8px;height:8px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
+              <div style="font-size:13px;color:white;font-weight:600;">Con resultados reales, activamos <span style="color:var(--amber);">el resto progresivamente</span></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <div style="min-width:8px;height:8px;border-radius:50%;background:var(--celeste);margin-top:5px;flex-shrink:0;"></div>
+              <div style="font-size:13px;color:white;font-weight:600;">Picker <span style="color:var(--celeste);">entrena a todo el equipo</span> — onboarding sin costo de la mano de su account manager</div>
+            </div>
+            <div style="background:hsl(229 50% 20%);border-radius:8px;padding:10px 14px;margin-top:4px;">
+              <div style="font-size:12px;color:hsl(212 100% 80%);font-weight:500;">Sin interrupción operativa — Flows convive con el proceso actual desde el día 1</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div style="background:var(--green-dim);border:2px solid var(--green-mid);border-radius:14px;padding:16px 20px;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="font-size:28px;font-weight:900;color:var(--green-text);flex-shrink:0;">✓</div>
+            <div>
+              <div style="font-size:14px;font-weight:800;color:var(--text);">Arranque progresivo · cero riesgo operativo</div>
+              <div style="font-size:12px;color:var(--sub);margin-top:4px;">Las 80+ tiendas se activan con datos reales del piloto — no con estimaciones.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- #deck -->
+
+<div id="slide-num">1 / 8</div>
+<div id="nav">
+  <button class="nav-btn" id="prev" onclick="move(-1)" disabled>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <div id="indicators"></div>
+  <button class="nav-btn" id="next" onclick="move(1)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+</div>
+<script>
+  const slides = document.querySelectorAll('.slide'), total = slides.length; let cur = 0;
+  const iw = document.getElementById('indicators');
+  slides.forEach((_,i) => { const d = document.createElement('div'); d.className='dot'+(i===0?' on':''); d.onclick=()=>go(i); iw.appendChild(d); });
+  function go(n) { slides[cur].classList.remove('active'); slides[cur].classList.add('exit'); setTimeout(()=>slides[cur].classList.remove('exit'),420); cur=n; slides[cur].classList.add('active'); document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===cur)); document.getElementById('slide-num').textContent=`${cur+1} / ${total}`; document.getElementById('prev').disabled=cur===0; document.getElementById('next').disabled=cur===total-1; }
+  function move(d) { if(cur+d>=0&&cur+d<total) go(cur+d); }
+  document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key==='ArrowDown') move(1); if(e.key==='ArrowLeft'||e.key==='ArrowUp') move(-1); });
+</script>
+</body>
+</html>
