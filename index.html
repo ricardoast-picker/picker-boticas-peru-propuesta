@@ -430,117 +430,123 @@
       <h2>Pagas solo por lo que entregas.</h2>
     </div>
 
-    <div class="grid2" style="gap:16px;align-items:start;">
-      <!-- TARIFARIO -->
-      <div class="card" style="padding:16px 20px;">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px;">Carriers disponibles · Lima · S/ por envío</div>
-        <div style="border-radius:10px;overflow:hidden;border:1px solid var(--border);">
-          <table class="tbl" style="margin:0;">
-            <thead>
-              <tr style="background:var(--text);">
-                <th style="color:hsl(212 100% 85%);font-size:9px;padding:7px 10px;">Km</th>
-                <th class="r" style="color:hsl(212 100% 85%);font-size:9px;padding:7px 8px;">Cabify</th>
-                <th class="r" style="color:hsl(212 100% 85%);font-size:9px;padding:7px 8px;">Rapicargo ★◆</th>
-                <th class="r" style="color:hsl(212 100% 85%);font-size:9px;padding:7px 8px;">Pedidos Ya</th>
-                <th class="r" style="color:var(--celeste);font-size:9px;padding:7px 8px;">Yango ▼</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td style="font-size:11px;font-weight:600;padding:7px 10px;">0–3 km</td><td class="r" style="padding:7px 8px;font-size:11px;">8.50</td><td class="r" style="padding:7px 8px;font-size:11px;">6.90</td><td class="r" style="padding:7px 8px;font-size:11px;">7.50</td><td class="r" style="padding:7px 8px;font-size:11px;font-weight:700;color:var(--celeste);">7.65</td></tr>
-              <tr><td style="font-size:11px;font-weight:600;padding:7px 10px;">4 km</td><td class="r" style="padding:7px 8px;font-size:11px;">10.92</td><td class="r" style="padding:7px 8px;font-size:11px;">8.84</td><td class="r" style="padding:7px 8px;font-size:11px;">9.98</td><td class="r" style="padding:7px 8px;font-size:11px;font-weight:700;color:var(--celeste);">9.53</td></tr>
-              <tr><td style="font-size:11px;font-weight:600;padding:7px 10px;">5 km</td><td class="r" style="padding:7px 8px;font-size:11px;">12.92</td><td class="r" style="padding:7px 8px;font-size:11px;">10.44</td><td class="r" style="padding:7px 8px;font-size:11px;">12.08</td><td class="r" style="padding:7px 8px;font-size:11px;font-weight:700;color:var(--celeste);">11.04</td></tr>
-              <tr><td style="font-size:11px;font-weight:600;padding:7px 10px;">6 km</td><td class="r" style="padding:7px 8px;font-size:11px;">14.91</td><td class="r" style="padding:7px 8px;font-size:11px;">12.03</td><td class="r" style="padding:7px 8px;font-size:11px;">14.18</td><td class="r" style="padding:7px 8px;font-size:11px;font-weight:700;color:var(--celeste);">12.54</td></tr>
-              <tr><td style="font-size:11px;font-weight:600;padding:7px 10px;">7.5 km</td><td class="r" style="padding:7px 8px;font-size:11px;">17.91</td><td class="r" style="padding:7px 8px;font-size:11px;">13.83</td><td class="r" style="padding:7px 8px;font-size:11px;">17.33</td><td class="r" style="padding:7px 8px;font-size:11px;font-weight:700;color:var(--celeste);">15.54</td></tr>
-              <tr><td style="font-size:11px;font-weight:600;padding:7px 10px;">km extra</td><td class="r" style="padding:7px 8px;font-size:11px;">2.00</td><td class="r" style="padding:7px 8px;font-size:11px;">1.60</td><td class="r" style="padding:7px 8px;font-size:11px;">2.10</td><td class="r" style="padding:7px 8px;font-size:11px;font-weight:700;color:var(--celeste);">1.50</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div style="margin-top:8px;font-size:10px;color:var(--muted);">★ Cash on delivery &nbsp;·&nbsp; ◆ Recaudo &nbsp;·&nbsp; ▼ Tarifas públicas — tu contrato negociado es mejor (S/5.5 base)</div>
-      </div>
+    <div style="display:grid;grid-template-columns:1.15fr 0.85fr;gap:16px;align-items:start;">
 
-      <!-- DERECHA: FEE + RESUMEN -->
+      <!-- IZQUIERDA: HERO PRICING (responde ¿cuánto pago? + ¿hay letra chica?) -->
       <div style="display:flex;flex-direction:column;gap:12px;">
 
-        <!-- FEE PICKER -->
-        <div class="card" style="padding:18px 22px;">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px;">¿Qué le pagas a Picker?</div>
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-            <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 18px;text-align:center;flex:1;">
-              <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Yango · tarifa negociada</div>
-              <div style="font-size:30px;font-weight:900;color:var(--text);margin-top:4px;">S/ 5.5</div>
-              <div style="font-size:10px;color:var(--muted);margin-top:2px;">base · más km adicional</div>
+        <!-- DARK HERO CARD -->
+        <div style="background:var(--text);border-radius:18px;padding:22px 26px;">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:hsl(212 100% 55%);margin-bottom:18px;">¿Cuánto le pagas a Picker?</div>
+
+          <!-- DOS NÚMEROS GRANDES -->
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-bottom:18px;">
+            <div style="text-align:center;">
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:hsl(212 100% 50%);letter-spacing:.06em;margin-bottom:6px;">Cuota mensual fija</div>
+              <div style="font-size:54px;font-weight:900;color:hsl(162 100% 58%);line-height:1;">S/ 0</div>
+              <div style="font-size:11px;color:hsl(212 100% 65%);margin-top:5px;">sin importar el volumen</div>
             </div>
-            <div style="font-size:20px;color:var(--muted);font-weight:300;">+</div>
-            <div style="background:var(--celeste-dim);border:2px solid var(--celeste-mid);border-radius:10px;padding:14px 18px;text-align:center;flex:1;">
-              <div style="font-size:10px;font-weight:700;color:var(--celeste);text-transform:uppercase;letter-spacing:.06em;">Fee Picker</div>
-              <div style="font-size:30px;font-weight:900;color:var(--celeste);margin-top:4px;">S/ 1.65</div>
-              <div style="font-size:10px;color:var(--sub);margin-top:2px;">S/1.40 + IGV · por envío</div>
+            <div style="font-size:32px;color:hsl(229 35% 30%);font-weight:300;align-self:center;">+</div>
+            <div style="text-align:center;background:hsl(193 100% 45%/.16);border:1.5px solid hsl(193 100% 45%/.38);border-radius:14px;padding:16px 10px;">
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--celeste);letter-spacing:.06em;margin-bottom:6px;">Fee por envío</div>
+              <div style="font-size:54px;font-weight:900;color:var(--celeste);line-height:1;">S/ 1.65</div>
+              <div style="font-size:11px;color:hsl(212 100% 65%);margin-top:5px;">S/ 1.40 + IGV</div>
             </div>
           </div>
-          <div style="background:var(--green-dim);border:1px solid var(--green-mid);border-radius:8px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;">
+
+          <!-- SEGURO SHIELD -->
+          <div style="background:hsl(193 100% 45%/.1);border:1px solid hsl(193 100% 45%/.22);border-radius:10px;padding:9px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
             <div>
-              <div style="font-size:13px;font-weight:600;color:var(--sub);">Cuota fija mensual</div>
-              <div style="font-size:11px;color:var(--muted);text-decoration:line-through;margin-top:2px;">S/ 200/local · S/ 12,000 total</div>
+              <div style="font-size:12px;font-weight:700;color:var(--celeste);">+ Seguro Shield <span style="font-weight:500;color:hsl(212 100% 60%);">(opcional)</span></div>
+              <div style="font-size:10px;color:hsl(212 100% 60%);margin-top:2px;">2% del valor del pedido · reembolso hasta S/100 · cubre 3PL y Mi Flota</div>
             </div>
-            <div style="font-size:38px;font-weight:900;color:var(--green-text);">S/ 0</div>
+            <div style="font-size:18px;font-weight:900;color:var(--celeste);white-space:nowrap;margin-left:14px;">2%</div>
           </div>
-          <div style="margin-top:8px;background:var(--celeste-dim);border:1px solid var(--celeste-mid);border-radius:8px;padding:8px 14px;">
-            <div style="font-size:11px;font-weight:700;color:var(--celeste);">Seguro Shield (opcional)</div>
-            <div style="font-size:10px;color:var(--sub);margin-top:1px;">2% del valor del pedido · reembolso hasta S/100 por incidencia · cubre 3PL y Mi Flota</div>
+
+          <!-- CONDICIONES DENTRO DEL HERO — no se pierden -->
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span style="background:hsl(162 100% 44%/.18);border:1px solid hsl(162 100% 44%/.32);border-radius:6px;padding:5px 12px;font-size:11px;font-weight:700;color:hsl(162 100% 60%);">✓ Sin mínimo de envíos</span>
+            <span style="background:hsl(162 100% 44%/.18);border:1px solid hsl(162 100% 44%/.32);border-radius:6px;padding:5px 12px;font-size:11px;font-weight:700;color:hsl(162 100% 60%);">✓ Tarifas fijas · sin precios dinámicos</span>
+            <span style="background:hsl(162 100% 44%/.18);border:1px solid hsl(162 100% 44%/.32);border-radius:6px;padding:5px 12px;font-size:11px;font-weight:700;color:hsl(162 100% 60%);">✓ Sin penalización por cancelación</span>
           </div>
         </div>
 
-        <!-- INTEGRACIÓN GRATIS -->
-        <div style="background:linear-gradient(135deg,hsl(193 100% 45%/.15),hsl(162 100% 44%/.15));border:1.5px solid var(--celeste-mid);border-radius:12px;padding:14px 20px;display:flex;gap:14px;align-items:center;">
-          <div style="font-size:30px;flex-shrink:0;">🚀</div>
+        <!-- ONBOARDING GRATIS -->
+        <div style="background:linear-gradient(135deg,hsl(193 100% 45%/.1),hsl(162 100% 44%/.1));border:1.5px solid var(--celeste-mid);border-radius:14px;padding:13px 20px;display:flex;gap:14px;align-items:center;">
+          <div style="font-size:26px;flex-shrink:0;">🚀</div>
           <div style="flex:1;">
-            <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:2px;">Integración gratis los primeros 30 días</div>
-            <div style="font-size:12px;color:var(--sub);">Onboarding riders · Flows · conexión Yango — sin costo al arrancar</div>
+            <div style="font-size:13px;font-weight:800;color:var(--text);">Onboarding gratis los primeros 30 días</div>
+            <div style="font-size:11px;color:var(--sub);margin-top:2px;">Conexión Yango · alta riders · Flows — sin costo al arrancar</div>
           </div>
           <div style="text-align:right;flex-shrink:0;">
-            <div style="font-size:14px;font-weight:900;color:var(--muted);text-decoration:line-through;opacity:.5;">S/3,000</div>
-            <div style="font-size:22px;font-weight:900;color:var(--green-text);">S/ 0</div>
-          </div>
-        </div>
-
-        <!-- RESUMEN DARK -->
-        <div style="background:hsl(229 35% 13%);border:1px solid hsl(229 35% 22%);border-radius:12px;overflow:hidden;flex:1;">
-          <div style="display:grid;grid-template-columns:1fr auto 1fr;padding:16px 20px;gap:8px;align-items:center;border-bottom:1px solid hsl(229 35% 20%);">
-            <div style="text-align:center;">
-              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:hsl(346 100% 75%);margin-bottom:4px;">Costo hoy</div>
-              <div style="font-size:34px;font-weight:900;color:hsl(346 100% 70%);">S/ 48,800</div>
-            </div>
-            <div style="font-size:26px;color:var(--celeste);font-weight:300;">→</div>
-            <div style="text-align:center;">
-              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:hsl(162 100% 60%);margin-bottom:4px;">Con Picker</div>
-              <div style="font-size:34px;font-weight:900;color:hsl(162 100% 55%);">S/ 45,025</div>
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:16px 18px;gap:10px;">
-            <div style="text-align:center;">
-              <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:hsl(162 100% 60%);margin-bottom:4px;">Ahorro directo</div>
-              <div style="font-size:26px;font-weight:900;color:hsl(162 100% 55%);">S/ 45K/año</div>
-            </div>
-            <div style="text-align:center;border-left:1px solid hsl(229 35% 22%);border-right:1px solid hsl(229 35% 22%);">
-              <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:hsl(193 100% 65%);margin-bottom:4px;">Riders</div>
-              <div style="font-size:26px;font-weight:900;color:hsl(193 100% 65%);">6 → 12/día</div>
-            </div>
-            <div style="text-align:center;">
-              <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:hsl(43 100% 65%);margin-bottom:4px;">Total con Picker</div>
-              <div style="font-size:26px;font-weight:900;color:hsl(43 100% 65%);">20K env/mes</div>
-              <div style="font-size:9px;color:hsl(212 100% 55%);margin-top:3px;">vs 4,500 hoy</div>
-            </div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);text-decoration:line-through;opacity:.5;">S/3,000</div>
+            <div style="font-size:20px;font-weight:900;color:var(--green-text);">S/ 0</div>
           </div>
         </div>
 
       </div>
-    </div>
-    <div style="background:var(--green-dim);border:2px solid var(--green-mid);border-radius:14px;padding:16px 28px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:28px;">
-      <span style="font-size:15px;font-weight:800;color:var(--green-text);">✓ Sin mínimo de envíos</span>
-      <span style="color:var(--green-mid);font-size:18px;font-weight:300;">·</span>
-      <span style="font-size:15px;font-weight:800;color:var(--green-text);">✓ Tarifas fijas · sin precios dinámicos</span>
-      <span style="color:var(--green-mid);font-size:18px;font-weight:300;">·</span>
-      <span style="font-size:15px;font-weight:800;color:var(--green-text);">✓ Sin penalización por cancelación</span>
+
+      <!-- DERECHA: IMPACTO + REFERENCIA -->
+      <div style="display:flex;flex-direction:column;gap:12px;">
+
+        <!-- COMPARATIVA ANTES/DESPUÉS -->
+        <div style="background:hsl(229 35% 12%);border:1px solid hsl(229 35% 22%);border-radius:18px;overflow:hidden;">
+          <div style="padding:16px 20px;border-bottom:1px solid hsl(229 35% 20%);">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:hsl(212 100% 55%);margin-bottom:12px;">Impacto real · tu operación</div>
+            <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;">
+              <div style="text-align:center;">
+                <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:hsl(346 100% 65%);letter-spacing:.05em;margin-bottom:5px;">Hoy</div>
+                <div style="font-size:30px;font-weight:900;color:hsl(346 100% 65%);line-height:1;">S/ 48,800</div>
+                <div style="font-size:10px;color:hsl(212 100% 50%);margin-top:3px;">/mes</div>
+              </div>
+              <div style="font-size:24px;color:var(--celeste);font-weight:300;">→</div>
+              <div style="text-align:center;background:hsl(162 100% 44%/.1);border:1px solid hsl(162 100% 44%/.25);border-radius:10px;padding:10px 6px;">
+                <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:hsl(162 100% 55%);letter-spacing:.05em;margin-bottom:5px;">Con Picker</div>
+                <div style="font-size:30px;font-weight:900;color:hsl(162 100% 55%);line-height:1;">S/ 45,025</div>
+                <div style="font-size:10px;color:hsl(212 100% 50%);margin-top:3px;">/mes</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;padding:12px 16px;gap:8px;">
+            <div style="text-align:center;">
+              <div style="font-size:8px;font-weight:700;text-transform:uppercase;color:hsl(162 100% 55%);margin-bottom:3px;">Ahorro / año</div>
+              <div style="font-size:22px;font-weight:900;color:hsl(162 100% 55%);">S/ 45K</div>
+            </div>
+            <div style="text-align:center;border-left:1px solid hsl(229 35% 22%);">
+              <div style="font-size:8px;font-weight:700;text-transform:uppercase;color:hsl(193 100% 65%);margin-bottom:3px;">Riders / día</div>
+              <div style="font-size:22px;font-weight:900;color:hsl(193 100% 65%);">6 → 12</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TARIFARIO REFERENCIA -->
+        <div class="card" style="padding:14px 16px;">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:10px;">Carriers disponibles · Lima · S/ por envío</div>
+          <div style="border-radius:8px;overflow:hidden;border:1px solid var(--border);">
+            <table class="tbl" style="margin:0;">
+              <thead>
+                <tr style="background:var(--text);">
+                  <th style="color:hsl(212 100% 85%);font-size:9px;padding:5px 8px;">Km</th>
+                  <th class="r" style="color:hsl(212 100% 85%);font-size:9px;padding:5px 6px;">Cabify</th>
+                  <th class="r" style="color:hsl(212 100% 85%);font-size:9px;padding:5px 6px;">Rapicargo ★◆</th>
+                  <th class="r" style="color:hsl(212 100% 85%);font-size:9px;padding:5px 6px;">Pedidos Ya</th>
+                  <th class="r" style="color:var(--celeste);font-size:9px;padding:5px 8px;">Yango ▼</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style="font-size:10px;font-weight:600;padding:5px 8px;">0–3 km</td><td class="r" style="padding:5px 6px;font-size:10px;">8.50</td><td class="r" style="padding:5px 6px;font-size:10px;">6.90</td><td class="r" style="padding:5px 6px;font-size:10px;">7.50</td><td class="r" style="padding:5px 8px;font-size:10px;font-weight:700;color:var(--celeste);">7.65</td></tr>
+                <tr><td style="font-size:10px;font-weight:600;padding:5px 8px;">4 km</td><td class="r" style="padding:5px 6px;font-size:10px;">10.92</td><td class="r" style="padding:5px 6px;font-size:10px;">8.84</td><td class="r" style="padding:5px 6px;font-size:10px;">9.98</td><td class="r" style="padding:5px 8px;font-size:10px;font-weight:700;color:var(--celeste);">9.53</td></tr>
+                <tr><td style="font-size:10px;font-weight:600;padding:5px 8px;">5 km</td><td class="r" style="padding:5px 6px;font-size:10px;">12.92</td><td class="r" style="padding:5px 6px;font-size:10px;">10.44</td><td class="r" style="padding:5px 6px;font-size:10px;">12.08</td><td class="r" style="padding:5px 8px;font-size:10px;font-weight:700;color:var(--celeste);">11.04</td></tr>
+                <tr><td style="font-size:10px;font-weight:600;padding:5px 8px;">6 km</td><td class="r" style="padding:5px 6px;font-size:10px;">14.91</td><td class="r" style="padding:5px 6px;font-size:10px;">12.03</td><td class="r" style="padding:5px 6px;font-size:10px;">14.18</td><td class="r" style="padding:5px 8px;font-size:10px;font-weight:700;color:var(--celeste);">12.54</td></tr>
+                <tr><td style="font-size:10px;font-weight:600;padding:5px 8px;">7.5 km</td><td class="r" style="padding:5px 6px;font-size:10px;">17.91</td><td class="r" style="padding:5px 6px;font-size:10px;">13.83</td><td class="r" style="padding:5px 6px;font-size:10px;">17.33</td><td class="r" style="padding:5px 8px;font-size:10px;font-weight:700;color:var(--celeste);">15.54</td></tr>
+                <tr><td style="font-size:10px;font-weight:600;padding:5px 8px;">km extra</td><td class="r" style="padding:5px 6px;font-size:10px;">2.00</td><td class="r" style="padding:5px 6px;font-size:10px;">1.60</td><td class="r" style="padding:5px 6px;font-size:10px;">2.10</td><td class="r" style="padding:5px 8px;font-size:10px;font-weight:700;color:var(--celeste);">1.50</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top:6px;font-size:9px;color:var(--muted);">★ Cash on delivery · ◆ Recaudo · ▼ Tu contrato negociado (S/5.5 base) es mejor que tarifas públicas</div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>
