@@ -18,7 +18,7 @@
     }
     html, body { height: 100%; background: var(--bg); font-family: 'Montserrat', sans-serif; color: var(--text); overflow: hidden; }
     #deck { width: 100vw; height: 100vh; position: relative; }
-    .slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 44px 66px; opacity: 0; transform: translateX(36px); transition: opacity .4s cubic-bezier(.4,0,.2,1), transform .4s cubic-bezier(.4,0,.2,1); pointer-events: none; overflow: hidden; background: var(--bg); }
+    .slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 48px 72px; opacity: 0; transform: translateX(36px); transition: opacity .4s cubic-bezier(.4,0,.2,1), transform .4s cubic-bezier(.4,0,.2,1); pointer-events: none; overflow: hidden; background: var(--bg); }
     .slide.active { opacity: 1; transform: translateX(0); pointer-events: all; }
     .slide.exit { opacity: 0; transform: translateX(-36px); }
     #nav { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; z-index: 100; }
@@ -34,12 +34,12 @@
     .tag.blue { color: var(--celeste); border-color: var(--celeste-mid); background: var(--celeste-dim); }
     .tag.amber { color: var(--amber); border-color: hsl(43 100% 45% / .3); background: var(--amber-bg); }
     .tag.red { color: var(--red); border-color: hsl(346 100% 45% / .25); background: var(--red-bg); }
-    h1 { font-size: clamp(32px, 4.2vw, 58px); font-weight: 800; line-height: 1.05; }
-    h2 { font-size: clamp(18px, 2.4vw, 33px); font-weight: 700; line-height: 1.15; }
-    .sub { font-size: clamp(11px, 1vw, 13.5px); color: var(--sub); font-weight: 400; line-height: 1.65; }
+    h1 { font-size: clamp(34px, 4.6vw, 62px); font-weight: 900; line-height: 1.05; }
+    h2 { font-size: clamp(22px, 2.9vw, 42px); font-weight: 900; line-height: 1.1; }
+    .sub { font-size: clamp(12px, 1.05vw, 14px); color: var(--sub); font-weight: 400; line-height: 1.65; }
     .content { position: relative; z-index: 1; width: 100%; max-width: 1100px; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; box-shadow: 0 1px 6px hsl(229 35% 16% / .06); }
-    .card-sm { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; box-shadow: 0 1px 4px hsl(229 35% 16% / .05); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 18px 22px; box-shadow: 0 3px 16px hsl(229 35% 16% / .07); }
+    .card-sm { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; box-shadow: 0 1px 6px hsl(229 35% 16% / .06); }
     .card-accent { background: var(--green-dim); border: 1px solid var(--green-mid); border-radius: 14px; padding: 16px 20px; }
     .card-celeste { background: var(--celeste-dim); border: 1px solid var(--celeste-mid); border-radius: 14px; padding: 16px 20px; }
     .card-red { background: var(--red-bg); border: 1px solid hsl(346 100% 45% / .25); border-radius: 14px; padding: 16px 20px; }
@@ -48,7 +48,7 @@
     .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; width: 100%; }
     .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%; }
     .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 1px 4px hsl(229 35% 16% / .05); }
-    .stat .val { font-size: clamp(22px, 2.8vw, 36px); font-weight: 800; }
+    .stat .val { font-size: clamp(26px, 3.2vw, 44px); font-weight: 900; }
     .stat .val.b { color: var(--celeste); } .stat .val.g { color: var(--green-text); } .stat .val.a { color: var(--amber); } .stat .val.r { color: var(--red); }
     .stat .lbl { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; }
     .stat .desc { font-size: 12px; color: var(--sub); margin-top: 2px; }
@@ -270,9 +270,9 @@
     </div>
 
     <div style="background:var(--celeste-dim);border:1px solid var(--celeste-mid);border-radius:10px;padding:11px 22px;display:flex;align-items:center;gap:14px;">
-      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--celeste);flex-shrink:0;">Yango sin cambios</div>
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--celeste);flex-shrink:0;">Yango · credenciales propias</div>
       <div style="width:1px;background:var(--celeste-mid);align-self:stretch;flex-shrink:0;"></div>
-      <div style="font-size:13px;color:var(--sub);font-weight:500;">Picker orquesta Yango con <strong>tu contrato propio</strong> (S/5.5 negociado). Tu acuerdo comercial no cambia — solo lo automatizamos.</div>
+      <div style="font-size:13px;color:var(--sub);font-weight:500;">Picker usa <strong>tus credenciales de Yango</strong> — tu precio negociado (S/5.5) se mantiene intacto. Los pagos e incidencias con Yango los sigues gestionando directamente entre Boticas Perú y Yango, igual que hoy.</div>
     </div>
   </div>
 </div>
@@ -467,13 +467,13 @@
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
             <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 18px;text-align:center;flex:1;">
               <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Yango · tarifa negociada</div>
-              <div style="font-size:22px;font-weight:900;color:var(--text);margin-top:4px;">S/ 5.5</div>
+              <div style="font-size:30px;font-weight:900;color:var(--text);margin-top:4px;">S/ 5.5</div>
               <div style="font-size:10px;color:var(--muted);margin-top:2px;">base · más km adicional</div>
             </div>
             <div style="font-size:20px;color:var(--muted);font-weight:300;">+</div>
             <div style="background:var(--celeste-dim);border:2px solid var(--celeste-mid);border-radius:10px;padding:14px 18px;text-align:center;flex:1;">
               <div style="font-size:10px;font-weight:700;color:var(--celeste);text-transform:uppercase;letter-spacing:.06em;">Fee Picker</div>
-              <div style="font-size:22px;font-weight:900;color:var(--celeste);margin-top:4px;">S/ 1.65</div>
+              <div style="font-size:30px;font-weight:900;color:var(--celeste);margin-top:4px;">S/ 1.65</div>
               <div style="font-size:10px;color:var(--sub);margin-top:2px;">S/1.40 + IGV · por envío</div>
             </div>
           </div>
@@ -482,7 +482,7 @@
               <div style="font-size:13px;font-weight:600;color:var(--sub);">Cuota fija mensual</div>
               <div style="font-size:11px;color:var(--muted);text-decoration:line-through;margin-top:2px;">S/ 200/local · S/ 12,000 total</div>
             </div>
-            <div style="font-size:28px;font-weight:900;color:var(--green-text);">S/ 0</div>
+            <div style="font-size:38px;font-weight:900;color:var(--green-text);">S/ 0</div>
           </div>
           <div style="margin-top:8px;background:var(--celeste-dim);border:1px solid var(--celeste-mid);border-radius:8px;padding:8px 14px;">
             <div style="font-size:11px;font-weight:700;color:var(--celeste);">Seguro Shield (opcional)</div>
@@ -508,26 +508,26 @@
           <div style="display:grid;grid-template-columns:1fr auto 1fr;padding:16px 20px;gap:8px;align-items:center;border-bottom:1px solid hsl(229 35% 20%);">
             <div style="text-align:center;">
               <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:hsl(346 100% 75%);margin-bottom:4px;">Costo hoy</div>
-              <div style="font-size:26px;font-weight:900;color:hsl(346 100% 70%);">S/ 48,800</div>
+              <div style="font-size:34px;font-weight:900;color:hsl(346 100% 70%);">S/ 48,800</div>
             </div>
             <div style="font-size:26px;color:var(--celeste);font-weight:300;">→</div>
             <div style="text-align:center;">
               <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:hsl(162 100% 60%);margin-bottom:4px;">Con Picker</div>
-              <div style="font-size:26px;font-weight:900;color:hsl(162 100% 55%);">S/ 45,025</div>
+              <div style="font-size:34px;font-weight:900;color:hsl(162 100% 55%);">S/ 45,025</div>
             </div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:16px 18px;gap:10px;">
             <div style="text-align:center;">
               <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:hsl(162 100% 60%);margin-bottom:4px;">Ahorro directo</div>
-              <div style="font-size:20px;font-weight:900;color:hsl(162 100% 60%);">S/ 45K/año</div>
+              <div style="font-size:26px;font-weight:900;color:hsl(162 100% 55%);">S/ 45K/año</div>
             </div>
             <div style="text-align:center;border-left:1px solid hsl(229 35% 22%);border-right:1px solid hsl(229 35% 22%);">
               <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:hsl(193 100% 65%);margin-bottom:4px;">Riders</div>
-              <div style="font-size:20px;font-weight:900;color:hsl(193 100% 65%);">6 → 12/día</div>
+              <div style="font-size:26px;font-weight:900;color:hsl(193 100% 65%);">6 → 12/día</div>
             </div>
             <div style="text-align:center;">
               <div style="font-size:9px;font-weight:700;text-transform:uppercase;color:hsl(43 100% 65%);margin-bottom:4px;">Total con Picker</div>
-              <div style="font-size:20px;font-weight:900;color:hsl(43 100% 65%);">20K env/mes</div>
+              <div style="font-size:26px;font-weight:900;color:hsl(43 100% 65%);">20K env/mes</div>
               <div style="font-size:9px;color:hsl(212 100% 55%);margin-top:3px;">vs 4,500 hoy</div>
             </div>
           </div>
@@ -535,14 +535,12 @@
 
       </div>
     </div>
-    <div style="background:var(--green-dim);border:1px solid var(--green-mid);border-radius:10px;padding:10px 20px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:16px;">
-      <span style="font-size:12px;font-weight:700;color:var(--green-text);">✓ Sin mínimo de envíos</span>
-      <span style="color:var(--green-mid);">·</span>
-      <span style="font-size:12px;font-weight:700;color:var(--green-text);">✓ Sin contrato forzoso</span>
-      <span style="color:var(--green-mid);">·</span>
-      <span style="font-size:12px;font-weight:700;color:var(--green-text);">✓ Tarifas fijas · sin precios dinámicos</span>
-      <span style="color:var(--green-mid);">·</span>
-      <span style="font-size:12px;font-weight:700;color:var(--green-text);">✓ Sin penalización por cancelación</span>
+    <div style="background:var(--green-dim);border:2px solid var(--green-mid);border-radius:14px;padding:16px 28px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:28px;">
+      <span style="font-size:15px;font-weight:800;color:var(--green-text);">✓ Sin mínimo de envíos</span>
+      <span style="color:var(--green-mid);font-size:18px;font-weight:300;">·</span>
+      <span style="font-size:15px;font-weight:800;color:var(--green-text);">✓ Tarifas fijas · sin precios dinámicos</span>
+      <span style="color:var(--green-mid);font-size:18px;font-weight:300;">·</span>
+      <span style="font-size:15px;font-weight:800;color:var(--green-text);">✓ Sin penalización por cancelación</span>
     </div>
   </div>
 </div>
@@ -557,7 +555,7 @@
 
     <div style="background:hsl(229 35% 10%);border-radius:16px;overflow:hidden;border:1px solid hsl(229 35% 22%);">
       <div style="padding:12px 24px;background:hsl(229 35% 14%);border-bottom:1px solid hsl(229 35% 22%);display:flex;align-items:center;justify-content:space-between;">
-        <div style="font-size:12px;font-weight:700;color:hsl(212 100% 75%);">Cadena de farmacias · LATAM · 6 meses con Picker</div>
+        <div style="font-size:12px;font-weight:700;color:hsl(212 100% 75%);">Negocio usando Picker · LATAM · 6 meses en operación</div>
         <div style="background:var(--green-dim);border:1px solid var(--green-mid);border-radius:6px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--green-text);">Activo hoy</div>
       </div>
       <div style="padding:0 8px;">
@@ -566,7 +564,7 @@
             <tr>
               <th style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:hsl(212 100% 55%);font-weight:700;padding:11px 16px;text-align:left;border-bottom:1px solid hsl(229 35% 22%);">Métrica</th>
               <th style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:hsl(346 100% 70%);font-weight:700;padding:11px 10px;text-align:right;border-bottom:1px solid hsl(229 35% 22%);">Antes</th>
-              <th style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:hsl(162 100% 60%);font-weight:700;padding:11px 10px;text-align:right;border-bottom:1px solid hsl(229 35% 22%);">Con Picker</th>
+              <th style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:hsl(162 100% 60%);font-weight:700;padding:11px 10px;text-align:right;border-bottom:1px solid hsl(229 35% 22%);background:hsl(162 100% 44%/.14);">✦ Con Picker</th>
               <th style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:hsl(193 100% 65%);font-weight:700;padding:11px 10px;text-align:right;border-bottom:1px solid hsl(229 35% 22%);">Cambio</th>
             </tr>
           </thead>
@@ -574,44 +572,44 @@
             <tr style="border-bottom:1px solid hsl(229 35% 18%);">
               <td style="font-size:13px;font-weight:600;color:white;padding:10px 16px;">Pedidos / mes</td>
               <td style="font-size:13px;color:hsl(212 100% 65%);padding:10px 10px;text-align:right;">3,200</td>
-              <td style="font-size:13px;font-weight:700;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">6,000</td>
-              <td style="font-size:12px;font-weight:800;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">+87%</td>
+              <td style="font-size:15px;font-weight:800;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;background:hsl(162 100% 44%/.08);">6,000</td>
+              <td style="font-size:14px;font-weight:900;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;">+87%</td>
             </tr>
             <tr style="border-bottom:1px solid hsl(229 35% 18%);">
               <td style="font-size:13px;font-weight:600;color:white;padding:10px 16px;">Tiempo de entrega</td>
               <td style="font-size:13px;color:hsl(212 100% 65%);padding:10px 10px;text-align:right;">60+ min</td>
-              <td style="font-size:13px;font-weight:700;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">42 min</td>
-              <td style="font-size:12px;font-weight:800;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">-30%</td>
+              <td style="font-size:15px;font-weight:800;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;background:hsl(162 100% 44%/.08);">42 min</td>
+              <td style="font-size:14px;font-weight:900;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;">-30%</td>
             </tr>
             <tr style="border-bottom:1px solid hsl(229 35% 18%);">
               <td style="font-size:13px;font-weight:600;color:white;padding:10px 16px;">Conductores propios</td>
               <td style="font-size:13px;color:hsl(212 100% 65%);padding:10px 10px;text-align:right;">30</td>
-              <td style="font-size:13px;font-weight:700;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">13</td>
-              <td style="font-size:12px;font-weight:800;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">-57%</td>
+              <td style="font-size:15px;font-weight:800;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;background:hsl(162 100% 44%/.08);">13</td>
+              <td style="font-size:14px;font-weight:900;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;">-57%</td>
             </tr>
             <tr style="border-bottom:1px solid hsl(229 35% 18%);">
               <td style="font-size:13px;font-weight:600;color:white;padding:10px 16px;">Costo fijo flota / mes</td>
               <td style="font-size:13px;color:hsl(212 100% 65%);padding:10px 10px;text-align:right;">$22,500</td>
-              <td style="font-size:13px;font-weight:700;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">$9,750</td>
-              <td style="font-size:12px;font-weight:800;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">-57%</td>
+              <td style="font-size:15px;font-weight:800;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;background:hsl(162 100% 44%/.08);">$9,750</td>
+              <td style="font-size:14px;font-weight:900;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;">-57%</td>
             </tr>
             <tr style="border-bottom:1px solid hsl(229 35% 18%);">
               <td style="font-size:13px;font-weight:600;color:white;padding:10px 16px;">Costo por pedido</td>
               <td style="font-size:13px;color:hsl(212 100% 65%);padding:10px 10px;text-align:right;">$7.03</td>
-              <td style="font-size:13px;font-weight:700;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">$3.73</td>
-              <td style="font-size:12px;font-weight:800;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">-47%</td>
+              <td style="font-size:15px;font-weight:800;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;background:hsl(162 100% 44%/.08);">$3.73</td>
+              <td style="font-size:14px;font-weight:900;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;">-47%</td>
             </tr>
             <tr style="border-bottom:1px solid hsl(229 35% 18%);">
               <td style="font-size:13px;font-weight:600;color:white;padding:10px 16px;">Ciudades con delivery</td>
               <td style="font-size:13px;color:hsl(212 100% 65%);padding:10px 10px;text-align:right;">1</td>
-              <td style="font-size:13px;font-weight:700;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">3</td>
-              <td style="font-size:12px;font-weight:800;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">+200%</td>
+              <td style="font-size:15px;font-weight:800;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;background:hsl(162 100% 44%/.08);">3</td>
+              <td style="font-size:14px;font-weight:900;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;">+200%</td>
             </tr>
             <tr>
               <td style="font-size:13px;font-weight:600;color:white;padding:10px 16px;">Fulfillment rate</td>
               <td style="font-size:13px;color:hsl(216 30% 40%);padding:10px 10px;text-align:right;">No medido</td>
-              <td style="font-size:13px;font-weight:700;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">97–98%</td>
-              <td style="font-size:12px;font-weight:800;color:hsl(162 100% 60%);padding:10px 10px;text-align:right;">✓</td>
+              <td style="font-size:15px;font-weight:800;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;background:hsl(162 100% 44%/.08);">97–98%</td>
+              <td style="font-size:14px;font-weight:900;color:hsl(162 100% 52%);padding:10px 10px;text-align:right;">✓</td>
             </tr>
           </tbody>
         </table>
@@ -619,17 +617,17 @@
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
-      <div style="background:var(--green-dim);border:2px solid var(--green-mid);border-radius:12px;padding:14px 18px;text-align:center;">
-        <div style="font-size:32px;font-weight:900;color:var(--green-text);">-47%</div>
-        <div style="font-size:11px;color:var(--sub);margin-top:4px;">costo por pedido</div>
+      <div style="background:var(--green-dim);border:2px solid var(--green-mid);border-radius:14px;padding:18px 22px;text-align:center;">
+        <div style="font-size:52px;font-weight:900;color:var(--green-text);line-height:1;">-47%</div>
+        <div style="font-size:13px;font-weight:700;color:var(--sub);margin-top:8px;">costo por pedido</div>
       </div>
-      <div style="background:var(--celeste-dim);border:2px solid var(--celeste-mid);border-radius:12px;padding:14px 18px;text-align:center;">
-        <div style="font-size:32px;font-weight:900;color:var(--celeste);">+87%</div>
-        <div style="font-size:11px;color:var(--sub);margin-top:4px;">pedidos por mes</div>
+      <div style="background:var(--celeste-dim);border:2px solid var(--celeste-mid);border-radius:14px;padding:18px 22px;text-align:center;">
+        <div style="font-size:52px;font-weight:900;color:var(--celeste);line-height:1;">+87%</div>
+        <div style="font-size:13px;font-weight:700;color:var(--sub);margin-top:8px;">pedidos por mes</div>
       </div>
-      <div style="background:hsl(229 35% 13%);border:2px solid hsl(229 35% 22%);border-radius:12px;padding:14px 18px;text-align:center;">
-        <div style="font-size:32px;font-weight:900;color:var(--amber);">-57%</div>
-        <div style="font-size:11px;color:hsl(212 100% 75%);margin-top:4px;">conductores necesarios</div>
+      <div style="background:hsl(229 35% 13%);border:2px solid hsl(229 35% 22%);border-radius:14px;padding:18px 22px;text-align:center;">
+        <div style="font-size:52px;font-weight:900;color:var(--amber);line-height:1;">-57%</div>
+        <div style="font-size:13px;font-weight:700;color:hsl(212 100% 75%);margin-top:8px;">conductores necesarios</div>
       </div>
     </div>
   </div>
@@ -637,114 +635,60 @@
 
 <!-- ═══ SLIDE 9 · PRÓXIMOS PASOS ═══ -->
 <div class="slide">
-  <div class="content" style="display:flex;flex-direction:column;gap:16px;">
+  <div class="content" style="display:flex;flex-direction:column;gap:22px;">
     <div>
       <div class="tag">Plan de arranque</div>
-      <h2>Arranque progresivo en 4 pasos.</h2>
+      <h2>Empezamos con 1 tienda.<br/><span style="color:var(--celeste);">Escalamos con datos reales.</span></h2>
     </div>
 
-    <div class="grid2" style="gap:16px;align-items:start;">
-      <!-- PASOS -->
-      <div class="card" style="padding:18px 22px;">
-        <div style="display:flex;flex-direction:column;gap:14px;">
+    <div class="grid3" style="gap:16px;">
 
-          <div style="display:flex;gap:14px;align-items:flex-start;">
-            <div class="step-num">1</div>
-            <div style="flex:1;">
-              <div style="font-size:14px;font-weight:700;color:var(--text);">Validación de datos</div>
-              <div style="font-size:12px;color:var(--sub);margin-top:4px;">Tarifa Yango exacta · % POS real · integración con Alonso</div>
-              <div style="margin-top:7px;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:11px;color:var(--muted);font-weight:600;">Semana 1 · Alonso + Ana Porras</div>
-            </div>
-          </div>
-
-          <div style="height:1px;background:var(--border);"></div>
-
-          <div style="display:flex;gap:14px;align-items:flex-start;">
-            <div class="step-num">2</div>
-            <div style="flex:1;">
-              <div style="font-size:14px;font-weight:700;color:var(--text);">Setup técnico</div>
-              <div style="font-size:12px;color:var(--sub);margin-top:4px;">Conexión Yango · alta 9 riders en Mi Flota · Flows configurado</div>
-              <div style="margin-top:7px;background:var(--celeste-dim);border:1px solid var(--celeste-mid);border-radius:6px;padding:5px 12px;font-size:11px;color:var(--celeste);font-weight:700;">Semana 1–2 · sin costo de integración</div>
-            </div>
-          </div>
-
-          <div style="height:1px;background:var(--border);"></div>
-
-          <div style="display:flex;gap:14px;align-items:flex-start;">
-            <div class="step-num">3</div>
-            <div style="flex:1;">
-              <div style="font-size:14px;font-weight:700;color:var(--text);">Piloto · 1 tienda</div>
-              <div style="font-size:12px;color:var(--sub);margin-top:4px;">Validar SLA real, costo por carrier y productividad · ajustar Flows</div>
-              <div style="margin-top:7px;background:var(--green-dim);border:1px solid var(--green-mid);border-radius:6px;padding:5px 12px;font-size:11px;color:var(--green-text);font-weight:700;">Semana 2–3 · 1 tienda piloto para validar todo antes de escalar</div>
-            </div>
-          </div>
-
-          <div style="height:1px;background:var(--border);"></div>
-
-          <div style="display:flex;gap:14px;align-items:flex-start;">
-            <div class="step-num">4</div>
-            <div style="flex:1;">
-              <div style="font-size:14px;font-weight:700;color:var(--text);">Escala a 80+ tiendas</div>
-              <div style="font-size:12px;color:var(--sub);margin-top:4px;">Revisión métricas piloto · decisión expansión · activación por tienda</div>
-              <div style="margin-top:7px;background:var(--amber-bg);border:1px solid hsl(43 100% 45%/.3);border-radius:6px;padding:5px 12px;font-size:11px;color:var(--amber);font-weight:700;">Semana 4 · decisión de escala a todas las tiendas</div>
-            </div>
-          </div>
-
+      <div class="card" style="border-top:3px solid var(--celeste);padding:20px 22px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <div class="step-num">1</div>
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Semana 1–2</div>
         </div>
+        <div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:8px;">Setup técnico</div>
+        <div style="font-size:13px;color:var(--sub);line-height:1.55;">Conexión Yango · alta riders en Mi Flota · Flows configurado con reglas de cobro y zona.</div>
+        <div style="margin-top:12px;background:var(--celeste-dim);border:1px solid var(--celeste-mid);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:700;color:var(--celeste);">Sin costo de integración</div>
       </div>
 
-      <!-- DERECHA -->
-      <div style="display:flex;flex-direction:column;gap:12px;">
-
-        <!-- PENDIENTES -->
-        <div class="card-amber" style="padding:16px 20px;">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--amber);margin-bottom:10px;">Pendientes a validar</div>
-          <div class="row-list">
-            <div class="row-item"><div class="row-dot a"></div><span><strong>Tarifa Yango negociada</strong> — confirmar S/5.5 o el valor real del contrato</span></div>
-            <div class="row-item"><div class="row-dot a"></div><span><strong>% real de pedidos con POS</strong> — estimamos 35%, validar con sistema</span></div>
-            <div class="row-item"><div class="row-dot a"></div><span><strong>Sistema de órdenes</strong> — con Alonso: ¿API disponible o integración manual?</span></div>
-            <div class="row-item"><div class="row-dot" style="background:var(--muted);"></div><span>Condiciones contrato riders Mego para Mi Flota</span></div>
-          </div>
+      <div class="card" style="border-top:3px solid var(--green);padding:20px 22px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <div class="step-num" style="background:var(--green-dim);border-color:var(--green-mid);color:var(--green-text);">2</div>
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Semana 2–3</div>
         </div>
+        <div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:8px;">Piloto · 1 tienda</div>
+        <div style="font-size:13px;color:var(--sub);line-height:1.55;">SLA real · costo por carrier · productividad Mi Flota — todo medido antes de escalar.</div>
+        <div style="margin-top:12px;background:var(--green-dim);border:1px solid var(--green-mid);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:700;color:var(--green-text);">Sin interrumpir la operación</div>
+      </div>
 
-        <!-- PILOTO -->
-        <div style="background:var(--text);border-radius:14px;overflow:hidden;">
-          <div style="padding:10px 18px;border-bottom:1px solid hsl(229 50% 25%);display:flex;align-items:center;gap:10px;">
-            <div style="font-size:18px;">🚀</div>
-            <div style="font-size:12px;font-weight:800;color:var(--celeste);">El piloto — cómo arrancar sin riesgo</div>
-          </div>
-          <div style="padding:16px 18px;display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;gap:12px;align-items:flex-start;">
-              <div style="min-width:8px;height:8px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
-              <div style="font-size:13px;color:white;font-weight:600;">Arrancamos con <span style="color:var(--celeste);">1 tienda</span> para validar todo el funcionamiento</div>
-            </div>
-            <div style="display:flex;gap:12px;align-items:flex-start;">
-              <div style="min-width:8px;height:8px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;"></div>
-              <div style="font-size:13px;color:white;font-weight:600;">Con resultados reales, activamos <span style="color:var(--amber);">el resto progresivamente</span></div>
-            </div>
-            <div style="display:flex;gap:12px;align-items:flex-start;">
-              <div style="min-width:8px;height:8px;border-radius:50%;background:var(--celeste);margin-top:5px;flex-shrink:0;"></div>
-              <div style="font-size:13px;color:white;font-weight:600;">Picker <span style="color:var(--celeste);">entrena a todo el equipo</span> — onboarding sin costo de la mano de su account manager</div>
-            </div>
-            <div style="background:hsl(229 50% 20%);border-radius:8px;padding:10px 14px;margin-top:4px;">
-              <div style="font-size:12px;color:hsl(212 100% 80%);font-weight:500;">Sin interrupción operativa — Flows convive con el proceso actual desde el día 1</div>
-            </div>
-          </div>
+      <div class="card" style="border-top:3px solid var(--amber);padding:20px 22px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <div class="step-num" style="background:var(--amber-bg);border-color:hsl(43 100% 45%/.4);color:var(--amber);">3</div>
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Semana 4+</div>
         </div>
+        <div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:8px;">Escala a 80+ tiendas</div>
+        <div style="font-size:13px;color:var(--sub);line-height:1.55;">Decisión con datos reales del piloto · activación tienda por tienda · mismos riders.</div>
+        <div style="margin-top:12px;background:var(--amber-bg);border:1px solid hsl(43 100% 45%/.3);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:700;color:var(--amber);">Cero inversión adicional en flota</div>
+      </div>
 
-        <!-- CTA -->
-        <div style="background:var(--green-dim);border:2px solid var(--green-mid);border-radius:14px;padding:16px 20px;">
-          <div style="display:flex;align-items:center;gap:14px;">
-            <div style="font-size:28px;font-weight:900;color:var(--green-text);flex-shrink:0;">✓</div>
-            <div>
-              <div style="font-size:14px;font-weight:800;color:var(--text);">Arranque progresivo · cero riesgo operativo</div>
-              <div style="font-size:12px;color:var(--sub);margin-top:4px;">Las 80+ tiendas se activan con datos reales del piloto — no con estimaciones.</div>
-            </div>
-          </div>
-        </div>
+    </div>
 
+    <!-- DARK CTA -->
+    <div style="background:var(--text);border-radius:16px;padding:22px 28px;display:flex;align-items:center;gap:24px;">
+      <div style="font-size:48px;font-weight:900;color:var(--celeste);flex-shrink:0;line-height:1;">1</div>
+      <div style="width:1px;background:hsl(229 35% 25%);align-self:stretch;flex-shrink:0;"></div>
+      <div style="flex:1;">
+        <div style="font-size:16px;font-weight:800;color:white;margin-bottom:5px;">1 tienda piloto arranca sin inversión ni riesgo operativo</div>
+        <div style="font-size:13px;color:hsl(212 100% 75%);">Picker convive con Yango desde el día 1 · onboarding del equipo incluido · Nelly aprueba la expansión con resultados reales, no con estimaciones.</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0;min-width:160px;">
+        <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:6px;">Próximo paso</div>
+        <div style="font-size:14px;font-weight:800;color:white;">Definir la tienda<br/>y fecha de arranque</div>
       </div>
     </div>
+
   </div>
 </div>
 
